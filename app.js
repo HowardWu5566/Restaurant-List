@@ -6,7 +6,6 @@ const port = 3000
 
 // 載入樣板引擎
 const exphbs = require('express-handlebars')
-const { blockParams } = require('handlebars/runtime')
 
 // 載入 restaurant.json
 const restaurantList = require('./restaurant.json')

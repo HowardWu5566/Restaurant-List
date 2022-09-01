@@ -25,12 +25,8 @@ db.once('open', () => {
 // 載入 Restaurant model
 const Restaurant = require('./models/restaurant')
 
-// const restaurantList = require('./models/seeds/restaurant.json')
 // 靜態檔案路徑
 app.use(express.static('public'))
-
-
-
 
 // 從資料庫產生 district 陣列，用來動態產生下拉式選單
 const districts = ['地區']
@@ -46,7 +42,6 @@ Restaurant.find()
   })
   .catch(error => console.log(error))
 
-
 // 瀏覽所有餐廳
 app.get('/', (req, res) => {
   Restaurant.find()
@@ -56,7 +51,7 @@ app.get('/', (req, res) => {
 })
 
 // 瀏覽一家餐廳的詳細資訊
-app.get('/restaurants/:restaurant_id', (req, res) => {
+app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .lean()

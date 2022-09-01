@@ -1,0 +1,88 @@
+<div class="container col-6 my-5">
+  <h3 class="my-5" style="text-align:center">編輯餐廳</h3>
+  <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
+    <div class="mb-3 row">
+      <label for="name" class="form-label col-2">店名</label>
+      <div class="col-10">
+        <input type="text" class="form-control" id="name_en" name="name" placeholder="如: Sababa 沙巴巴中東美食"
+          value="{{restaurant.name}}" aria-describedby="name_en" required>
+      </div>
+      <div class="col-2"></div>
+      <div class="form-text col-10" style="color:red">必填</div>
+    </div>
+    <div class="mb-3 row">
+      <label for="name_en" class="form-label col-2">店名(英)</label>
+      <div class="col-10">
+        <input type="text" class="form-control" id="name_en" name="name_en" placeholder="如: Sababa Pita Bar"
+          value="{{restaurant.name_en}}" aria-describedby="name_en">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="category" class="form-label col-2">類別</label>
+      <div class="col-10">
+        <input type="text" class="form-control" id="category" name="category" placeholder="如: 中東料理"
+          value="{{restaurant.category}}" aria-describedby="category">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="image" class="form-label col-2">圖片位址</label>
+      <div class="col-10">
+        <input type="text" class="form-control" id="image" name="image"
+          placeholder="如: https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg"
+          value="{{restaurant.image}}" aria-describedby="image">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="location" class="form-label col-2">地址</label>
+      <div class="col-10">
+        <input type="text" class="form-control" data-bs-toggle="collapse" data-bs-target="#location-collapse"
+          id="location" name="location" placeholder="如: 台北市大安區羅斯福路三段 283 巷 17 號" autocomplete="off"
+          value="{{restaurant.location}}" aria-describedby="location">
+      </div>
+      <div class="collapse" id="location-collapse">
+        <div class="card card-body">
+          請注意：地址中含有「市」及「區」，才能使用地區搜尋功能
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="phone" class="form-label col-2">電話</label>
+      <div class="col-10">
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="如: 02 2363 8009"
+          value="{{restaurant.phone}}" aria-describedby="phone">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="google_map" class="form-label col-2">Google Map</label>
+      <div class="col-10">
+        <input type="text" class="form-control" id="google_map" name="google_map"
+          placeholder="如: https://goo.gl/maps/BJdmLuVdDbw" value="{{restaurant.google_map}}"
+          aria-describedby="google_map">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="rating" class="form-label col-2">評價</label>
+      <div class="col-10">
+        <input type="number" step="0.1" max="5" min="0" class="form-control" data-bs-toggle="collapse"
+          data-bs-target="#rating-collapse" id="rating" name="rating" placeholder="如: 4.1" value="{{restaurant.rating}}"
+          autocomplete=off"" aria-describedby="rating">
+      </div>
+      <div class="collapse" id="rating-collapse">
+        <div class="card card-body">
+          請注意：此欄需填寫數字才能使用評價搜尋功能
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">敘述</label>
+      <textarea class="form-control" id="description" name="description"
+        placeholder="如: 沙巴巴批塔是台灣第一家純手工批塔專賣店,只選用最新鮮的頂級原料,以及道地的中東家傳配方。" rows="5"
+        aria-describedby="rating">{{restaurant.description}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Save</button>
+    <a href="/"><button type="button" class="btn btn-outline-primary m-1">Back</button></a>
+
+  </form>
+
+</div>

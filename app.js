@@ -1,68 +1,90 @@
 // 載入express
-const { query } = require('express')
 const express = require('express')
 const app = express()
 const port = 3000
 
 // 載入樣板引擎
 const exphbs = require('express-handlebars')
-
-// 載入 restaurant.json
-const restaurantList = require('./restaurant.json')
-
 // 設定樣板引擎
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// 載入mongoose
+const mongoose = require('mongoose')
+// 連線至資料庫
+mongoose.connect(process.env.MONGODB_URI_RESTAURANTLIST)
+// 取得資料庫連線狀態
+const db = mongoose.connection
+db.on('error', () => {
+  console.log('mongodb error')
+})
+db.once('open', () => {
+  console.log('mongodb connected')
+})
+
+// 載入 Restaurant model
+const Restaurant = require('./models/restaurant')
+
+// const restaurantList = require('./models/seeds/restaurant.json')
 // 靜態檔案路徑
 app.use(express.static('public'))
 
-// 產生 district 陣列，用來動態產生下拉式選單
+
+
+
+// 從資料庫產生 district 陣列，用來動態產生下拉式選單
 const districts = ['地區']
-restaurantList.results.forEach(restaurant => {
-  const address = restaurant.location
-  const district = address.slice(address.indexOf('市') + 1, address.indexOf('區') + 1)
-  if (!districts.includes(district))
-    districts.push(district)
-})
+Restaurant.find()
+  .lean()
+  .then(restaurants => {
+    restaurants.forEach(restaurant => {
+      const address = restaurant.location
+      const district = address.slice(address.indexOf('市') + 1, address.indexOf('區') + 1)
+      if (district && !districts.includes(district))
+        districts.push(district)
+    })
+  })
+  .catch(error => console.log(error))
 
-// 設定路由 - index 
+
+// 瀏覽所有餐廳
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results, districts })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants, districts }))
+    .catch(error => console.log(error))
 })
 
-// 設定路由 - show
+// 瀏覽一家餐廳的詳細資訊
 app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant })
+  const id = req.params.id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
 })
 
 // 設定路由 - search
 app.get('/search', (req, res) => {
-  let restaurants
-  const type = req.query.type
-  const district = req.query.district
-  // 根據餐廳或分類篩選
-  if (type === '餐廳、分類') {
-    const keyword = req.query.keyword.toLowerCase()
-    restaurants = restaurantList.results.filter(restaurant => {
-      return ((restaurant.name.toLowerCase() + restaurant.category).includes(keyword))
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      const type = req.query.type
+      const district = req.query.district
+      if (type === '餐廳、分類') {
+        const keyword = req.query.keyword.toLowerCase()
+        restaurants = restaurants.filter(restaurant =>
+          (restaurant.name.toLowerCase() + restaurant.name_en.toLowerCase() + restaurant.category).includes(keyword))
+      } else if (type === '評分') {
+        const score = Number(req.query.keyword)
+        restaurants = restaurants.filter(restaurant => restaurant.rating >= score)
+      }
+      if (district !== '地區') {
+        restaurants = restaurants.filter(restaurant =>
+          restaurant.location.includes(district))
+      }
+      res.render('index', { restaurants, districts })
     })
-    // 根據評分篩選
-  } else if (type === '評分') {
-    const score = Number(req.query.keyword)
-    restaurants = restaurantList.results.filter(restaurant => {
-      return (restaurant.rating >= score)
-    })
-  }
-  // 根據地區篩選
-  if (district !== '地區') {
-    restaurants = restaurants.filter(restaurant => {
-      return (restaurant.location.includes(district))
-    })
-  }
-  // 渲染篩選結果
-  res.render('index', { restaurants, districts })
 })
 
 // 啟動伺服器

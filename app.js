@@ -28,6 +28,9 @@ const Restaurant = require('./models/restaurant')
 // 靜態檔案路徑
 app.use(express.static('public'))
 
+// body parser
+app.use(express.urlencoded({ extended: true }))
+
 // 從資料庫產生 district 陣列，用來動態產生下拉式選單
 const districts = ['地區']
 Restaurant.find()
@@ -49,6 +52,17 @@ app.get('/', (req, res) => {
     .then(restaurants => res.render('index', { restaurants, districts }))
     .catch(error => console.log(error))
 })
+
+// 新增餐廳
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+app.post('/restaurants', (req, res) => Restaurant.create(req.body)
+  .then(() => res.redirect('/'))
+  .catch(error => console.log(error))
+)
+
+
 
 // 瀏覽一家餐廳的詳細資訊
 app.get('/restaurants/:id', (req, res) => {

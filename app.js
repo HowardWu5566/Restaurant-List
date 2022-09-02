@@ -104,7 +104,6 @@ app.post('/restaurants/:id/edit', (req, res) => {
 
 // 刪除餐廳
 app.post('/restaurants/:id/delete', (req, res) => {
-  console.log(req)
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
@@ -112,7 +111,7 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 設定路由 - search
+// 搜尋功能
 app.get('/search', (req, res) => {
   Restaurant.find()
     .lean()

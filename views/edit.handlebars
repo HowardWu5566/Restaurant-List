@@ -80,9 +80,29 @@
         aria-describedby="rating">{{restaurant.description}}</textarea>
     </div>
 
-    <button type="submit" class="btn btn-outline-primary">Save</button>
-    <a href="/"><button type="button" class="btn btn-outline-primary m-1">Back</button></a>
+    <button type="submit" class="btn btn-outline-primary" {{#unless change}}disabled{{/unless}}>儲存</button>
+    <button type="button" class="btn btn-outline-danger m-1" data-bs-toggle="modal"
+      data-bs-target="#editModal">返回</button>
 
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">注意！</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            尚未儲存，確定離開？
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-primary">儲存</button>
+            <a href="/">
+              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">離開</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
-
 </div>

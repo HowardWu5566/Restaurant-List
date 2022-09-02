@@ -77,7 +77,30 @@
       <textarea class="form-control" id="description" name="description"
         placeholder="如: 沙巴巴批塔是台灣第一家純手工批塔專賣店,只選用最新鮮的頂級原料,以及道地的中東家傳配方。" rows="5" aria-describedby="rating"></textarea>
     </div>
+    <button type="submit" class="btn btn-outline-primary">新增</button>
+    <button type="button" class="btn btn-outline-danger m-1" data-bs-toggle="modal"
+      data-bs-target="#newModal">返回</button>
 
-    <button type="submit" class="btn btn-outline-primary">Submit</button>
+    <!-- Modal -->
+    <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newModalLabel">注意！</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            尚未新增，確定離開？
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-primary">新增</button>
+            <a href="/">
+              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">離開</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </form>
 </div>

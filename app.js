@@ -6,7 +6,7 @@ const port = 3000
 // 載入樣板引擎
 const exphbs = require('express-handlebars')
 // 設定樣板引擎
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ defaultLayout: 'main', }))
 app.set('view engine', 'handlebars')
 
 // 載入mongoose
@@ -49,7 +49,10 @@ Restaurant.find()
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurants => res.render('index', { restaurants, districts }))
+    .then(restaurants => {
+      const name = restaurants.forEach(restaurant => restaurant.name)
+      res.render('index', { restaurants, districts, name })
+    })
     .catch(error => console.log(error))
 })
 
@@ -73,10 +76,11 @@ app.get('/restaurants/:id', (req, res) => {
 
 // 修改餐廳資訊
 app.get('/restaurants/:id/edit', (req, res) => {
+  let change = true
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
+    .then(restaurant => res.render('edit', { restaurant, change }))
     .catch(error => console.log(error))
 })
 app.post('/restaurants/:id/edit', (req, res) => {
@@ -100,6 +104,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 
 // 刪除餐廳
 app.post('/restaurants/:id/delete', (req, res) => {
+  console.log(req)
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

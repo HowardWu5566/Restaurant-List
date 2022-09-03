@@ -3,31 +3,46 @@
   <div class="search-bar-outer">
     <div class="search-bar-inner">
       <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <select class="btn btn-outline-danger" name="district" type="button" aria-label="Search Way">
-            {{#each districts}}
-            <option href="#">{{ this }}</option>
-            {{/each}}
-          </select>
-          <select class="btn btn-outline-danger" name="type" type="button" aria-label="Search Way">
-            <option href="#">餐廳、分類</option>
-            <option href="#">評分</option>
-          </select>
-          <input type="text" name="keyword" class="form-control" placeholder="請輸入餐廳、分類或評分"
-            aria-label="Restaurant Name or rating" aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+        <div class="row">
+          <div class="col-md-10 col-12 mx-auto">
+            <h4 class="mb-2">尋找餐廳：</h4>
+          </div>
+        </div>
+        <div class="row col-md-10 col-12 mx-auto" style="border-color:blue">
+          <div class="col-4" style="padding:0 12px 0 0px; ">
+            <div class="input-group col-4"
+              style="border:rgb(215, 215, 215) 2px solid; background-color:#fff; border-radius:18px;">
+              <button class="btn btn-major form-control-text" type="submit" id="search-button"><i
+                  class="fas fa-search"></i></button>
+              <input type="text" style="border:none; border-radius:18px;" class="form-control" name="keyword"
+                placeholder="請輸入餐廳、分類或評分">
+            </div>
+          </div>
+
+          <div class="col-4" style="padding:0 12px 0;">
+            <select class="btn btn-outline-danger" style="display-inline" name="type" type="button"
+              aria-label="Search Way">
+              <option href="#">餐廳</option>
+              <option href="#">類別</option>
+              <option href="#">評分</option>
+              <option href="#">地區</option>
+            </select>
+          </div>
+          <div class="col-4" style="padding:0 0 0 12px;">
+            <select class="btn btn-outline-danger form-control" name="type" type="button" aria-label="Search Way">
+              <option href="#">A --> Z</option>
+              <option href="#">Z --> A</option>
+              <option href="#">類別</option>
+              <option href="#">地區</option>
+            </select>
           </div>
         </div>
       </form>
     </div>
   </div>
-</div>
 
-<!-- restaurant list -->
-<div class="container mt-5">
-  <div class="row">
+  <!-- restaurant list -->
+  <div class="row mt-5">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns row row-cols-3">
         {{#each restaurants}}
@@ -77,33 +92,10 @@
           </div>
         </div>
         {{/each}}
-
-        {{!--
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">注意！</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                確定刪除
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">返回</button>
-                <button type="button" class="btn btn-outline-danger">刪除</button>
-              </div>
-            </div>
-          </div>
-        </div> --}}
-
       </div>
     </div>
   </div>
-
   {{#unless restaurants.length}}
   <h6 style="text-align:center; display-block">查無結果</h6>
   {{/unless}}
-
 </div>

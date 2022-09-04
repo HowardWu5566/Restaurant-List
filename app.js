@@ -31,27 +31,42 @@ app.use(express.static('public'))
 // body parser
 app.use(express.urlencoded({ extended: true }))
 
-// 從資料庫產生 district 陣列，用來動態產生下拉式選單
-const districts = ['地區']
-Restaurant.find()
-  .lean()
-  .then(restaurants => {
-    restaurants.forEach(restaurant => {
-      const address = restaurant.location
-      const district = address.slice(address.indexOf('市') + 1, address.indexOf('區') + 1)
-      if (district && !districts.includes(district))
-        districts.push(district)
-    })
-  })
-  .catch(error => console.log(error))
+// 從資料庫產生 district 陣列，用來動態產生下拉式選單 (暫時用不到但我捨不得刪)
+// const districts = ['地區']
+// Restaurant.find()
+//   .lean()
+//   .then(restaurants => {
+//     restaurants.forEach(restaurant => {
+//       const address = restaurant.location
+//       const district = address.slice(address.indexOf('市') + 1, address.indexOf('區') + 1)
+//       if (district && !districts.includes(district))
+//         districts.push(district)
+//     })
+//   })
+//   .catch(error => console.log(error))
+
+// 排序方式
+function generateSortWay(sort) {
+  switch (sort) {
+    case '地區':
+      return { location: 1 }
+    case 'Z --> A':
+      return { name: -1 }
+    case '類別':
+      return { category: 1 }
+    default:
+      return { name: 1 }
+  }
+}
 
 // 瀏覽所有餐廳
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
+    .sort({ _id: 1 })
     .then(restaurants => {
       const name = restaurants.forEach(restaurant => restaurant.name)
-      res.render('index', { restaurants, districts, name })
+      res.render('index', { restaurants })
     })
     .catch(error => console.log(error))
 })
@@ -113,28 +128,36 @@ app.post('/restaurants/:id/delete', (req, res) => {
 
 // 搜尋功能
 app.get('/search', (req, res) => {
+  const sort = req.query.sort
   Restaurant.find()
     .lean()
+    .sort(generateSortWay(sort))
     .then(restaurants => {
       const type = req.query.type
-      const district = req.query.district
-      if (type === '餐廳、分類') {
-        const keyword = req.query.keyword.toLowerCase()
+      const keyword = req.query.keyword
+      if (type === '店名') {
+        restaurants = restaurants.filter(restaurant => {
+          const name = restaurant.name.toLowerCase() + restaurant.name_en.toLowerCase().trim()
+          return name.includes(keyword.toLowerCase().trim())
+        })
+      } else if (type === '類別') {
         restaurants = restaurants.filter(restaurant =>
-          (restaurant.name.toLowerCase() + restaurant.name_en.toLowerCase() + restaurant.category).includes(keyword))
+          restaurant.category.includes(keyword))
       } else if (type === '評分') {
-        const score = Number(req.query.keyword)
+        const score = Number(keyword)
         restaurants = restaurants.filter(restaurant => restaurant.rating >= score)
-      }
-      if (district !== '地區') {
+      } else if (type === '地區') {
         restaurants = restaurants.filter(restaurant =>
-          restaurant.location.includes(district))
+          restaurant.location.includes(keyword))
       }
-      res.render('index', { restaurants, districts })
+      res.render('index', { restaurants, keyword })
     })
 })
+
 
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })
+
+

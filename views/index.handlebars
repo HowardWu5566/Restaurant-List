@@ -2,38 +2,37 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/search">
+      <form action="/search" method="GET">
         <div class="row">
           <div class="col-md-10 col-12 mx-auto">
             <h4 class="mb-2">尋找餐廳：</h4>
           </div>
         </div>
-        <div class="row col-md-10 col-12 mx-auto" style="border-color:blue">
+        <div class="row col-md-10 col-12 mx-auto">
           <div class="col-4" style="padding:0 12px 0 0px; ">
             <div class="input-group col-4"
               style="border:rgb(215, 215, 215) 2px solid; background-color:#fff; border-radius:18px;">
               <button class="btn btn-major form-control-text" type="submit" id="search-button"><i
                   class="fas fa-search"></i></button>
               <input type="text" style="border:none; border-radius:18px;" class="form-control" name="keyword"
-                placeholder="請輸入餐廳、分類或評分">
+                value="{{keyword}}" placeholder="請輸入關鍵字">
             </div>
           </div>
-
           <div class="col-4" style="padding:0 12px 0;">
-            <select class="btn btn-outline-danger" style="display-inline" name="type" type="button"
-              aria-label="Search Way">
-              <option href="#">餐廳</option>
-              <option href="#">類別</option>
-              <option href="#">評分</option>
-              <option href="#">地區</option>
+            <select class="btn btn-outline-danger" name="type" aria-label="Search Way">
+              <option>店名</option>
+              <option>類別</option>
+              <option>評分</option>
+              <option>地區</option>
             </select>
           </div>
           <div class="col-4" style="padding:0 0 0 12px;">
-            <select class="btn btn-outline-danger form-control" name="type" type="button" aria-label="Search Way">
-              <option href="#">A --> Z</option>
-              <option href="#">Z --> A</option>
-              <option href="#">類別</option>
-              <option href="#">地區</option>
+            <select class="btn btn-outline-danger form-control" name="sort" onchange="submit()" aria-label="Sort Way">
+              <option>排序方式</option>
+              <option> A --> Z </option>
+              <option> Z --> A </option>
+              <option> 類別 </option>
+              <option> 地區 </option>
             </select>
           </div>
         </div>

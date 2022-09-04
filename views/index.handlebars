@@ -65,7 +65,7 @@
             <a href="/restaurants/{{this._id}}">
               <button type="button" class="btn btn-outline-primary btn-sm m-1">查看</button>
             </a>
-            <form action="/restaurants/{{ this._id }}/delete" method="POST">
+            <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST">
               <button type="button" class="btn btn-outline-danger btn-sm m-1" data-bs-toggle="modal"
                 data-bs-target="#deleteModal{{this._id}}">刪除</button>
 

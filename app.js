@@ -3,13 +3,16 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// 載入 method-override
+const methodOverride = require('method-override')
+
 // 載入樣板引擎
 const exphbs = require('express-handlebars')
 // 設定樣板引擎
 app.engine('handlebars', exphbs({ defaultLayout: 'main', }))
 app.set('view engine', 'handlebars')
 
-// 載入mongoose
+// 載入 mongoose
 const mongoose = require('mongoose')
 // 連線至資料庫
 mongoose.connect(process.env.MONGODB_URI_RESTAURANTLIST)
@@ -30,6 +33,10 @@ app.use(express.static('public'))
 
 // body parser
 app.use(express.urlencoded({ extended: true }))
+// 用 method-override 處理路由
+app.use(methodOverride('_method'))
+
+
 
 // 從資料庫產生 district 陣列，用來動態產生下拉式選單 (暫時用不到但我捨不得刪)
 // const districts = ['地區']
@@ -98,7 +105,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .then(restaurant => res.render('edit', { restaurant, change }))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => {
@@ -118,7 +125,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // 刪除餐廳
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

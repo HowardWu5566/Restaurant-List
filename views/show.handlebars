@@ -39,7 +39,7 @@
         <a href="/restaurants/{{restaurant._id}}/edit">
           <button type="button" class="btn btn-outline-primary btn-lg m-1">編輯</button>
         </a>
-        <form action="/restaurants/{{ restaurant._id }}/delete" method="POST">
+        <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST">
           <button type="button" class="btn btn-outline-danger btn-lg m-1" data-bs-toggle="modal"
             data-bs-target="#deleteModal">刪除</button>
 

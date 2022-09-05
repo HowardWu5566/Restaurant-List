@@ -7,16 +7,10 @@ const Restaurant = require('../restaurant')
 // 載入種子資料
 const restaurantSeed = require('./restaurant.json').results
 
-// 連線至資料庫
-mongoose.connect(process.env.MONGODB_URI_RESTAURANTLIST)
+// 連線 mongoose
+const db = require('../../config/mongoose')
 
-// 取得連線狀態
-const db = mongoose.connection
-db.on('error', () =>
-  console.log('mongodb error')
-)
 db.once('open', () => {
-  console.log('mongodb connected')
   // 在資料庫建立種子資料
   Restaurant.create(restaurantSeed)
   console.log('done')

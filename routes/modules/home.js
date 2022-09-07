@@ -8,8 +8,8 @@ const Restaurant = require('../../models/restaurant')
 // 首頁路由
 router.get('/', (req, res) => {
   // 載入function getDistricts 和下拉選單的值
-  const getDistricts = require('../../models/districts')
-  const dropDownValue = require('../../models/dropdown')
+  const getDistricts = require('../../utils/districts')
+  const dropDownValue = require('../../utils/dropdown')
   Restaurant.find()
     .lean()
     .sort({ _id: 1 })

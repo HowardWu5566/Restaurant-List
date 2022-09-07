@@ -5,27 +5,26 @@ const router = express.Router()
 // 載入 Restaurant model
 const Restaurant = require('../../models/restaurant')
 
-// 排序方式
-function generateSortWay(sort) {
-  switch (sort) {
-    case dropDownValue.sortWay.nameIncrease:
-      return { name: 1 }
-    case dropDownValue.sortWay.nameDecrease:
-      return { name: -1 }
-    case dropDownValue.sortWay.byCategory:
-      return { category: 1 }
-    case dropDownValue.sortWay.byDistrict:
-      return { location: 1 }
-    default:
-      return { _id: 1 }
-  }
-}
-
 // 搜尋功能
 router.get('/', (req, res) => {
   // 載入function getDistricts 和下拉選單的值
   const getDistricts = require('../../models/districts')
   const dropDownValue = require('../../models/dropdown')
+  // 排序方式
+  function generateSortWay(sort) {
+    switch (sort) {
+      case dropDownValue.sortWay.nameIncrease:
+        return { name: 1 }
+      case dropDownValue.sortWay.nameDecrease:
+        return { name: -1 }
+      case dropDownValue.sortWay.byCategory:
+        return { category: 1 }
+      case dropDownValue.sortWay.byDistrict:
+        return { location: 1 }
+      default:
+        return { _id: 1 }
+    }
+  }
   Restaurant.find()
     .lean()
     .sort(generateSortWay(req.query.sort))

@@ -7,14 +7,17 @@ const Restaurant = require('../../models/restaurant')
 
 // 首頁路由
 router.get('/', (req, res) => {
+  // 載入function getDistricts 和下拉選單的值
+  const getDistricts = require('../../models/districts')
+  const dropDownValue = require('../../models/dropdown')
   Restaurant.find()
     .lean()
     .sort({ _id: 1 })
-    .then(restaurants => {
-      const name = restaurants.forEach(restaurant => restaurant.name)
-      res.render('index', { restaurants })
+    .then((restaurants) => {
+      const districts = getDistricts(restaurants)
+      res.render('index', { restaurants, districts, dropDownValue })
     })
-    .catch(error => console.log(error))
+    .catch((error) => console.log(error))
 })
 
 // 匯出路由器

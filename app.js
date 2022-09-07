@@ -9,14 +9,11 @@ const methodOverride = require('method-override')
 // 載入樣板引擎
 const exphbs = require('express-handlebars')
 // 設定樣板引擎
-app.engine('handlebars', exphbs({ defaultLayout: 'main', }))
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 // 連線 mongoose
 require('./config/mongoose')
-
-// 載入 Restaurant model
-const Restaurant = require('./models/restaurant')
 
 // 引入路由器
 const routes = require('./routes')
@@ -26,6 +23,7 @@ app.use(express.static('public'))
 
 // body parser
 app.use(express.urlencoded({ extended: true }))
+
 // 用 method-override 處理路由
 app.use(methodOverride('_method'))
 

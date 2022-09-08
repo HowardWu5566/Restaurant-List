@@ -27,7 +27,7 @@
     <div class="mb-3 row">
       <label for="image" class="form-label col-2">圖片位址</label>
       <div class="col-10">
-        <input type="text" class="form-control" id="input4" name="image"
+        <input type="url" class="form-control" id="input4" name="image"
           placeholder="如: https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg"
           value="{{restaurant.image}}" aria-describedby="image">
       </div>
@@ -48,14 +48,19 @@
     <div class="mb-3 row">
       <label for="phone" class="form-label col-2">電話</label>
       <div class="col-10">
-        <input type="text" class="form-control" id="input6" name="phone" placeholder="如: 02 2363 8009"
-          value="{{restaurant.phone}}" aria-describedby="phone">
+        <input type="tel" class="form-control" data-bs-toggle="collapse"
+          data-bs-target="#phone-collapse" id="input6" name="phone" pattern="0\d{1}-\d{4}-\d{4}" placeholder="如: 02-2363-8009" value="{{restaurant.phone}}" aria-describedby="rating">
+      </div>
+      <div class="collapse" id="phone-collapse">
+        <div class="card card-body">
+          格式：0x-xxxx-xxxx
+        </div>
       </div>
     </div>
     <div class="mb-3 row">
       <label for="google_map" class="form-label col-2">Google Map</label>
       <div class="col-10">
-        <input type="text" class="form-control" id="input7" name="google_map"
+        <input type="url" class="form-control" id="input7" name="google_map"
           placeholder="如: https://goo.gl/maps/BJdmLuVdDbw" value="{{restaurant.google_map}}"
           aria-describedby="google_map">
       </div>
@@ -65,7 +70,7 @@
       <div class="col-10">
         <input type="number" step="0.1" max="5" min="0" class="form-control" data-bs-toggle="collapse"
           data-bs-target="#rating-collapse" id="input8" name="rating" placeholder="如: 4.1" value="{{restaurant.rating}}"
-          autocomplete=off"" aria-describedby="rating">
+          autocomplete="off" aria-describedby="rating">
       </div>
       <div class="collapse" id="rating-collapse">
         <div class="card card-body">

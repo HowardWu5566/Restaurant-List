@@ -65,7 +65,7 @@ npm install
 4. 設定暫時環境變數以連接 MongoDB 資料庫，請在終端機輸入：
 
 ```
-export MONGODB_URI_RESTAURANTLIST="mongodb+srv://您的帳號:您的密碼@cluster0.zv7iixt.mongodb.net/todo-list?retryWrites=true&w=majority"
+export MONGODB_URI_RESTAURANTLIST="mongodb+srv://您的帳號:您的密碼@cluster0.zv7iixt.mongodb.net/restaurant-list?retryWrites=true&w=majority"
 ```
 
 5. （非必要）匯入種子資料，請在終端機輸入：

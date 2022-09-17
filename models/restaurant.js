@@ -1,9 +1,7 @@
-// 載入 mongoose
 const mongoose = require('mongoose')
-
-// 定義資料結構
 const Schema = mongoose.Schema
-const resturantSchema = new Schema({
+
+const restaurantSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -32,7 +30,12 @@ const resturantSchema = new Schema({
   description: {
     type: String,
   },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  }
 })
 
-// 匯出 Restaurant model
-module.exports = mongoose.model('Restaurant', resturantSchema)
+module.exports = mongoose.model('Restaurant', restaurantSchema)

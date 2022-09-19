@@ -4,9 +4,9 @@ const Restaurant = require('../../models/restaurant')
 
 router.get('/', (req, res) => {
   const getDistricts = require('../../utils/districts')
-  // const userId = req.user._id
+  const userId = req.user._id
   const dropDownValue = require('../../utils/dropdown')
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .sort({ _id: 1 })
     .then(restaurants => {
@@ -16,5 +16,4 @@ router.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 匯出路由器
 module.exports = router

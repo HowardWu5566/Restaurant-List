@@ -1,16 +1,10 @@
-// 引入路由器
 const express = require('express')
 const router = express.Router()
-
-// 載入 Restaurant model
 const Restaurant = require('../../models/restaurant')
 
-// 搜尋功能
 router.get('/', (req, res) => {
-  // 載入function getDistricts 和下拉選單的值
   const getDistricts = require('../../utils/districts')
   const dropDownValue = require('../../utils/dropdown')
-  // 排序方式
   function generateSortWay(sort) {
     switch (sort) {
       case dropDownValue.sortWay.nameIncrease:
@@ -57,5 +51,4 @@ router.get('/', (req, res) => {
     })
 })
 
-// 匯出路由器
 module.exports = router

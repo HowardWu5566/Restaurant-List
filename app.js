@@ -1,36 +1,34 @@
-// 載入express
 const express = require('express')
 const app = express()
 const port = 3000
-
-// 載入 method-override
+const session = require('express-session')
 const methodOverride = require('method-override')
-
-// 載入樣板引擎
 const exphbs = require('express-handlebars')
-// 設定樣板引擎
+const routes = require('./routes')
+const usePassport = require('./config/passport')
+require('./config/mongoose')
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// 連線 mongoose
-require('./config/mongoose')
-
-// 引入路由器
-const routes = require('./routes')
-
-// 靜態檔案路徑
+app.use(session({
+  secret: 'Secret',
+  resave: false,
+  saveUninitialized: true
+}))
 app.use(express.static('public'))
-
-// body parser
 app.use(express.urlencoded({ extended: true }))
-
-// 用 method-override 處理路由
 app.use(methodOverride('_method'))
 
-// 將 request 導入路由器
+usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 app.use(routes)
 
-// 啟動伺服器
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })

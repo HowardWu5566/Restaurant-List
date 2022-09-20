@@ -101,16 +101,15 @@
       </div>
     </div>
   </div>
-  {{!-- <div style="margin-right:10px;">
-    <a href="/restaurants/new"><button type="button" class="btn btn-outline-primary">新增</button></a>
-  </div> --}}
+
+  {{#unless restaurants.length}}
+  <h6 style="text-align:center; display-block">查無結果</h6>
+  {{/unless}}
 
   <div class="d-grid gap-2">
     <a href="/restaurants/new" class="btn btn-info" type="button">新增</a>
   </div>
-  {{#unless restaurants.length}}
-  <h6 style="text-align:center; display-block">查無結果</h6>
-  {{/unless}}
+
 </div>
 
 <script>

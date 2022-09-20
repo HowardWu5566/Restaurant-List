@@ -6,9 +6,8 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 router.post('/', (req, res) => {
-  const userId = req.user._id
-  const name = req.body.name
-  return Restaurant.create(req.body, userId)
+  req.body.userId = req.user._id
+  return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

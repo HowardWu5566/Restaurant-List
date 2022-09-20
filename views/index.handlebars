@@ -15,7 +15,7 @@
                 <select class=" btn btn-outline-danger form-control" id="search-way" name="type" type="button"
                   onchange="renderSearchBar()" aria-label="Search Way">
                   {{#each dropDownValue.searchWay}}
-                    <option>{{this}}</option>
+                  <option>{{this}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -37,7 +37,7 @@
             <select class="btn btn-outline-danger form-control" name="sort" value="{{sort}}" onchange="submit()"
               aria-label="Sort Way">
               {{#each dropDownValue.sortWay}}
-                <option>{{this}}</option>
+              <option>{{this}}</option>
               {{/each}}
             </select>
           </div>
@@ -100,6 +100,13 @@
         {{/each}}
       </div>
     </div>
+  </div>
+  {{!-- <div style="margin-right:10px;">
+    <a href="/restaurants/new"><button type="button" class="btn btn-outline-primary">新增</button></a>
+  </div> --}}
+
+  <div class="d-grid gap-2">
+    <a href="/restaurants/new" class="btn btn-info" type="button">新增</a>
   </div>
   {{#unless restaurants.length}}
   <h6 style="text-align:center; display-block">查無結果</h6>

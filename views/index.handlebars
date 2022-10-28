@@ -9,8 +9,8 @@
       </div>
       <form action="/search" method="GET">
         <div class="row col-md-10 col-12 mx-auto">
-          <div class=" col-4" style="padding:0;">
-            <div class="input-group col-4" style="padding: 0 12px 0 0">
+          <div class=" col-8" style="padding:0;">
+            <div class="input-group" style="padding: 0 12px 0 0">
               <div>
                 <select class=" btn btn-outline-danger form-control" id="search-way" name="type" type="button"
                   onchange="renderSearchBar()" aria-label="Search Way">
@@ -29,11 +29,13 @@
                     name="keyword" value="{{keyword}}" placeholder="請輸入店名">
                 </div>
               </div>
+              <div class="col-2">
+                <button type="submit" class="btn btn-outline-danger form-control">搜尋</button>
+              </div>
             </div>
           </div>
-          <div class="col-4">
-          </div>
-          <div class="col-4" style="padding:0 0 0 12px;">
+          <div class="col-2"> </div>
+          <div class="col-2" style="padding:0 0 0 12px;">
             <select class="btn btn-outline-danger form-control" name="sort" value="{{sort}}" onchange="submit()"
               aria-label="Sort Way">
               {{#each dropDownValue.sortWay}}
@@ -73,27 +75,8 @@
               <button type="button" class="btn btn-outline-primary btn-sm m-1">查看</button>
             </a>
             <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST">
-              <button type="button" class="btn btn-outline-danger btn-sm m-1" data-bs-toggle="modal"
-                data-bs-target="#deleteModal{{this._id}}">刪除</button>
-
-              <div class="modal fade" id="deleteModal{{this._id}}" tabindex="-1" aria-labelledby="deleteModal"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="deleteModalLabel">注意！</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      確定刪除{{ this.name }}？
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">返回</button>
-                      <button type="submit" class="btn btn-outline-danger">刪除</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <button type="submit" class="btn btn-outline-danger btn-sm m-1"
+                onclick="return confirm(`確定刪除 {{ this.name }} ？`)">刪除</button>
             </form>
           </div>
         </div>
@@ -106,7 +89,7 @@
   <h6 style="text-align:center; display-block">查無結果</h6>
   {{/unless}}
 
-  <div class="d-grid gap-2">
+  <div class="d-grid gap-2 mb-5">
     <a href="/restaurants/new" class="btn btn-info" type="button">新增</a>
   </div>
 

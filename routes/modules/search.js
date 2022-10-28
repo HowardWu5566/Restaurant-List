@@ -5,7 +5,7 @@ const Restaurant = require('../../models/restaurant')
 router.get('/', (req, res) => {
   const getDistricts = require('../../utils/districts')
   const dropDownValue = require('../../utils/dropdown')
-  function generateSortWay(sort) {
+  function generateSortWay (sort) {
     switch (sort) {
       case dropDownValue.sortWay.nameIncrease:
         return { name: 1 }

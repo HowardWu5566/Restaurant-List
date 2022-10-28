@@ -5,7 +5,7 @@ const Restaurant = require('../../models/restaurant')
 router.get('/', (req, res) => {
   const getDistricts = require('../../utils/districts')
   const dropDownValue = require('../../utils/dropdown')
-  function generateSortWay (sort) {
+  function generateSortWay(sort) {
     switch (sort) {
       case dropDownValue.sortWay.nameIncrease:
         return { name: 1 }
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
         return { _id: 1 }
     }
   }
-  Restaurant.find()
+  Restaurant.find({ userId: req.user._id })
     .lean()
     .sort(generateSortWay(req.query.sort))
     .then((restaurants) => {

@@ -1,19 +1,20 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant')
+const getDistricts = require('../../utils/getDistricts')
 
 router.get('/', (req, res) => {
-  const getDistricts = require('../../utils/districts')
-  const dropDownValue = require('../../utils/dropdown')
+  const sort = req.query.sort
+  // console.log(sort)
   function generateSortWay(sort) {
     switch (sort) {
-      case dropDownValue.sortWay.nameIncrease:
+      case 'nameIncrease':
         return { name: 1 }
-      case dropDownValue.sortWay.nameDecrease:
+      case 'nameDecrease':
         return { name: -1 }
-      case dropDownValue.sortWay.byCategory:
+      case 'byCategory':
         return { category: 1 }
-      case dropDownValue.sortWay.byDistrict:
+      case 'byDistrict':
         return { location: 1 }
       default:
         return { _id: 1 }
@@ -47,7 +48,7 @@ router.get('/', (req, res) => {
         )
       }
       const districts = getDistricts(restaurants)
-      res.render('index', { restaurants, keyword, districts, dropDownValue })
+      res.render('index', { restaurants, type, sort, keyword, districts })
     })
 })
 

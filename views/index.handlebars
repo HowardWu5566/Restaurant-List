@@ -14,9 +14,11 @@
               <div>
                 <select class=" btn btn-outline-danger form-control" id="search-way" name="type" type="button"
                   onchange="renderSearchBar()" aria-label="Search Way">
-                  {{#each dropDownValue.searchWay}}
-                  <option>{{this}}</option>
-                  {{/each}}
+                  <option>請選擇</option>
+                  <option {{#ifSelected type '店名' }}selected{{/ifSelected}}>店名</option>
+                  <option {{#ifSelected type '類別' }}selected{{/ifSelected}}>類別</option>
+                  <option {{#ifSelected type '評分' }}selected{{/ifSelected}}>評分</option>
+                  <option {{#ifSelected type '地區' }}selected{{/ifSelected}}>地區</option>
                 </select>
               </div>
               <div class="form-control p-0" id="search-bar" style="background-color:transparent; border:none">
@@ -38,9 +40,11 @@
           <div class="col-2" style="padding:0 0 0 12px;">
             <select class="btn btn-outline-danger form-control" name="sort" value="{{sort}}" onchange="submit()"
               aria-label="Sort Way">
-              {{#each dropDownValue.sortWay}}
-              <option>{{this}}</option>
-              {{/each}}
+              <option>排序方式</option>
+              <option value="nameIncrease" {{#ifSelected sort 'nameIncrease' }}selected{{/ifSelected}}>A --> Z</option>
+              <option value="nameDecrease" {{#ifSelected sort 'nameDecrease' }}selected{{/ifSelected}}>Z --> A</option>
+              <option value="byCategory" {{#ifSelected sort 'byCategory' }}selected{{/ifSelected}}>類別</option>
+              <option value="byDistrict" {{#ifSelected sort 'byDistrict' }}selected{{/ifSelected}}>地區</option>
             </select>
           </div>
         </div>

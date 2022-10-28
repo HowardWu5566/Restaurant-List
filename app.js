@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3000
 const session = require('express-session')
 const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const flash = require('connect-flash')
 const routes = require('./routes')
 const usePassport = require('./config/passport')
@@ -12,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 require('./config/mongoose')
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: handlebarsHelpers }))
 app.set('view engine', 'handlebars')
 
 app.use(session({

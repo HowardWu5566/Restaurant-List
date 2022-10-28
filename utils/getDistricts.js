@@ -1,5 +1,5 @@
-function getDistricts (restaurants) {
-  const districts = ['請選擇地區']
+function getDistricts(restaurants) {
+  const districts = []
   restaurants.forEach((restaurant) => {
     const address = restaurant.location
     const district = address.slice(

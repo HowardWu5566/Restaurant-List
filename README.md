@@ -4,7 +4,10 @@
 
 ## 功能列表
 
-- 使用者可以在首頁概覽所有餐廳的：
+- 使用者可以註冊帳號並登入，或以 Facebook 登入
+
+
+- 登入後，使用者可以在首頁概覽所有餐廳的：
 
   - 照片
   - 名稱
@@ -13,9 +16,10 @@
 
 - 使用者可以多種方式搜尋餐廳：
 
-  - 地區
-  - 餐廳名稱或類別
+  - 餐廳名稱
+  - 類別
   - 評分
+  - 地區
 
 - 使用者可以點選個別餐廳查看詳細資訊，包含：
 
@@ -38,9 +42,9 @@
 
 ## 畫面預覽
 
-![S2-3後A8](https://user-images.githubusercontent.com/110580842/188782748-d0203a0d-4a84-4692-9e32-92c9655d5ba5.png)
-![image](https://user-images.githubusercontent.com/110580842/188071746-eb9e1ef5-2aee-4281-a6b8-39ecbf86d16f.png)
-![image](https://user-images.githubusercontent.com/110580842/188783113-6f1b917b-4cc6-408d-8353-793eaab27d23.png)
+![image](https://user-images.githubusercontent.com/110580842/198890435-db02bda5-9010-4abf-a597-826d7c187434.png)
+![image](https://user-images.githubusercontent.com/110580842/198890304-a543e7c4-50d7-4709-a32c-71a80d7aa993.png)
+![image](https://user-images.githubusercontent.com/110580842/198890379-d1095271-5770-4d0d-a926-ff24117fd6dc.png)
 
 ## 安裝
 
@@ -73,8 +77,6 @@ export MONGODB_URI_RESTAURANTLIST="mongodb+srv://您的帳號:您的密碼@clust
 ```
 npm run seed
 ```
-
-&#8195;匯入後請在終端機按 Ctrl+C 再繼續下面的步驟
 
 6. 執行專案，請在終端機輸入：
 

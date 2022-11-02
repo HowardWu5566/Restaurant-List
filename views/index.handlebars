@@ -28,7 +28,7 @@
                   </button>
                   <input class=" form-control form-control-text" type="text"
                     style="border:none !important; outline:none; background-color:transparent; flex-wrap:nowrap; border-radius:18px"
-                    name="keyword" value="{{keyword}}" placeholder="請輸入店名">
+                    name="keyword" value="{{keyword}}" placeholder="請輸入關鍵字">
                 </div>
               </div>
               <div class="col-2">
@@ -100,9 +100,17 @@
 </div>
 
 <script>
-  // const dropDownValue = require('../models/dropdown')
+  // 根據搜尋條件渲染搜尋列
   function renderSearchBar() {
     const type = document.querySelector('#search-way').value
+    const categoryHTML = `
+      <div class=" from-control">
+        <select class="btn btn-outline-danger form-control" name="keyword" type="button" onchange="submit()" aria-label="Search Way">
+          {{#each categories}}
+            <option href="#">{{ this }}</option>
+          {{/each}}
+        </select>
+      </div>`
     const districtHTML = `
       <div class=" from-control">
         <select class="btn btn-outline-danger form-control" name="keyword" type="button" onchange="submit()" aria-label="Search Way">
@@ -111,7 +119,16 @@
           {{/each}}
         </select>
       </div>`
-    const nonDistrictHTML = `
+    const ratingHTML = `
+      <div class="form-control d-flex" style="background-color:#fff; border-radius:18px;padding:0">
+        <button class="btn btn-major form-control-text" type="submit" id="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+        <input class=" form-control form-control-text" type="text"
+          style="border:none !important; outline:none; background-color:transparent; flex-wrap:nowrap; border-radius:18px"
+          name="keyword" placeholder="搜尋${type}不低於：">
+      </div>`
+    const otherHTML = `
       <div class="form-control d-flex" style="background-color:#fff; border-radius:18px;padding:0">
         <button class="btn btn-major form-control-text" type="submit" id="search-button">
           <i class="fas fa-search"></i>
@@ -120,7 +137,8 @@
           style="border:none !important; outline:none; background-color:transparent; flex-wrap:nowrap; border-radius:18px"
           name="keyword" placeholder="請輸入${type}">
       </div>`
-    document.querySelector('#search-bar').innerHTML = type === '地區' ? districtHTML : nonDistrictHTML
+    document.querySelector('#search-bar').innerHTML = type === '類別' ? categoryHTML : type === '地區' ? districtHTML : type === '評分' ? ratingHTML : otherHTML
   }
-
 </script>
+
+{{#ifSelected type '評分' }}selected{{/ifSelected}}
